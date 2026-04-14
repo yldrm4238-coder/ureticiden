@@ -68,10 +68,12 @@ USING (
 
 -- 6. Kategoriler İçin Başlangıç Verilerini Ekle
 INSERT INTO public.categories (name, slug, image, count) VALUES
-('Sebzeler', 'sebzeler', '/src/assets/vegetables.jpg', 0),
-('Meyveler', 'meyveler', '/src/assets/fruits.jpg', 0),
-('Tahıllar', 'tahillar', '/src/assets/grains.jpg', 0),
-('Kuruyemişler', 'kuruyemisler', '/src/assets/nuts.jpg', 0),
-('Organik Ürünler', 'organik', '/src/assets/organic.jpg', 0),
-('Baklagiller', 'baklagiller', '/src/assets/grains.jpg', 0)
-ON CONFLICT (slug) DO NOTHING;
+('Et ve Et Ürünleri', 'et-ve-et-urunleri', 'https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=800&auto=format&fit=crop&q=60', 0),
+('Süt ve Süt Ürünleri', 'sut-ve-sut-urunleri', 'https://images.unsplash.com/photo-1550583724-125581f77833?w=800&auto=format&fit=crop&q=60', 0),
+('Yağlar', 'yaglar', 'https://images.unsplash.com/photo-1474979266404-7eaacbacf845?w=800&auto=format&fit=crop&q=60', 0),
+('Ballar', 'ballar', 'https://images.unsplash.com/photo-1471943038886-dfca81ad7137?w=800&auto=format&fit=crop&q=60', 0),
+('Tahıllar', 'tahillar', 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=800&auto=format&fit=crop&q=60', 0),
+('Yem Malzemesi', 'yem-malzemesi', 'https://images.unsplash.com/photo-1595113316349-9fa4eb24f884?w=800&auto=format&fit=crop&q=60', 0),
+('Büyükbaş Hayvan', 'buyukbas-hayvan', 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?w=800&auto=format&fit=crop&q=60', 0),
+('Küçükbaş Hayvan', 'kucukbas-hayvan', 'https://images.unsplash.com/photo-1484557918186-7b2439161678?w=800&auto=format&fit=crop&q=60', 0)
+ON CONFLICT (slug) DO UPDATE SET name = EXCLUDED.name, image = EXCLUDED.image;
