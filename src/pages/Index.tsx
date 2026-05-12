@@ -199,7 +199,7 @@ const Index = () => {
                   </li>
                 ))}
               </ul>
-              <Link to="/giris">
+              <Link to="/giris" className="block mt-2">
                 <Button className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 rounded-xl">
                   Üretici Olarak Kayıt Ol <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
@@ -224,7 +224,7 @@ const Index = () => {
                   </li>
                 ))}
               </ul>
-              <Link to="/giris">
+              <Link to="/giris" className="block mt-2">
                 <Button className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 rounded-xl">
                   Alıcı Olarak Kayıt Ol <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
