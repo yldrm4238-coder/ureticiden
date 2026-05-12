@@ -5,7 +5,16 @@ interface CategoryCardProps {
   category: Category;
 }
 
+const categoryImages: Record<string, string> = {
+  "ballar": "/assets/categories/ballar.png",
+  "kucukbas-hayvan": "/assets/categories/kucukbas.png",
+  "sut-ve-sut-urunleri": "/assets/categories/sut-urunleri.png",
+  "yaglar": "/assets/categories/yaglar.png",
+};
+
 const CategoryCard = ({ category }: CategoryCardProps) => {
+  const displayImage = categoryImages[category.slug] || category.image;
+
   return (
     <Link
       to={`/pazar?kategori=${category.slug}`}
@@ -13,7 +22,7 @@ const CategoryCard = ({ category }: CategoryCardProps) => {
     >
       <div className="card-hover relative rounded-2xl overflow-hidden aspect-[3/4]">
         <img
-          src={category.image}
+          src={displayImage}
           alt={category.name}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           loading="lazy"

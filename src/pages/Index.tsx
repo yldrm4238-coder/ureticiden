@@ -31,7 +31,7 @@ const Index = () => {
           <div className="absolute inset-0 gradient-hero-overlay" />
         </div>
 
-        <div className="container relative z-10 pt-24">
+        <div className="container relative z-10 pt-32">
           <div className="max-w-2xl space-y-6">
             <div className="animate-fade-up">
               <span className="inline-flex items-center gap-2 bg-primary-foreground/20 backdrop-blur text-primary-foreground text-sm font-medium px-4 py-2 rounded-full">
@@ -103,7 +103,7 @@ const Index = () => {
       <section className="container py-20">
         <div className="flex items-end justify-between mb-10">
           <div>
-            <p className="text-sm font-semibold text-primary uppercase tracking-wide mb-2">Kategoriler</p>
+            <p className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">Kategoriler</p>
             <h2 className="text-3xl font-bold text-foreground">Ne Arıyorsunuz?</h2>
           </div>
           <Link to="/pazar" className="hidden sm:flex items-center gap-1 text-sm font-medium text-primary hover:underline">
@@ -181,7 +181,7 @@ const Index = () => {
         <div className="container py-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             {/* Farmers */}
-            <div className="space-y-6">
+            <div className="space-y-8">
               <p className="text-sm font-semibold text-primary-foreground/60 uppercase tracking-wide">Üreticiler İçin</p>
               <h2 className="text-3xl font-bold text-primary-foreground">Ürünlerinizi Türkiye'ye Tanıtın</h2>
               <ul className="space-y-4">
@@ -206,7 +206,7 @@ const Index = () => {
               </Link>
             </div>
             {/* Buyers */}
-            <div className="space-y-6">
+            <div className="space-y-8">
               <p className="text-sm font-semibold text-primary-foreground/60 uppercase tracking-wide">Alıcılar İçin</p>
               <h2 className="text-3xl font-bold text-primary-foreground">Doğrudan Üreticiden Alın</h2>
               <ul className="space-y-4">
@@ -316,7 +316,7 @@ const Index = () => {
               </Button>
             </Link>
             <Link to="/giris">
-              <Button size="lg" variant="outline" className="border-earth-foreground/30 text-earth-foreground hover:bg-earth-foreground/10 rounded-xl px-8 w-full sm:w-auto">
+              <Button size="lg" variant="outline" className="border-earth-foreground/30 text-earth-foreground bg-transparent hover:bg-earth-foreground/10 rounded-xl px-8 w-full sm:w-auto">
                 Alıcı Olarak Başla
               </Button>
             </Link>

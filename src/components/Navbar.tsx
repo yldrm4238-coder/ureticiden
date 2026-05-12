@@ -22,8 +22,8 @@ const Navbar = () => {
   };
 
   return (
-    <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl">
-      <nav className="glass-nav rounded-2xl px-6 py-3 flex items-center justify-between">
+    <header className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl">
+      <nav className="glass-nav rounded-2xl px-6 py-4 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
           <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
             <Sprout className="w-5 h-5 text-primary-foreground" />
