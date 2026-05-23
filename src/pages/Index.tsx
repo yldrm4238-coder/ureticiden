@@ -36,19 +36,19 @@ const Index = () => {
             <div className="animate-fade-up">
               <span className="inline-flex items-center gap-2 bg-primary-foreground/20 backdrop-blur text-primary-foreground text-sm font-medium px-4 py-2 rounded-full">
                 <Sprout className="w-4 h-4" />
-                Türkiye'nin Çiftçi Pazarı
+                Türkiye'nin Üretici Pazarı
               </span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-primary-foreground leading-[1.1] animate-fade-up animate-fade-up-delay-1">
               Üreticiden
               <br />
-              Sofranıza
+              Evinize
             </h1>
 
             <p className="text-lg text-primary-foreground/80 max-w-lg animate-fade-up animate-fade-up-delay-2">
-              Çiftçiler ve alıcılar modern bir tarım pazarında buluşuyor.
-              Taze ürünleri doğrudan üreticiden keşfedin.
+              Üreticiler ve tüketiciler modern bir pazarda buluşuyor.
+              Ürünleri doğrudan üreticiden keşfedin.
             </p>
 
             {/* Search bar */}

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Sprout, Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -9,9 +9,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
-                <Sprout className="w-5 h-5 text-primary-foreground" />
-              </div>
+              <img src="/logo.jpg" alt="Üreticiden" className="w-9 h-9 rounded-xl object-contain" />
               <span className="text-lg font-bold">Üreticiden</span>
             </div>
             <p className="text-sm opacity-70 leading-relaxed">

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, X, Sprout, LogOut, User } from "lucide-react";
+import { Menu, X, LogOut, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 
@@ -25,9 +25,7 @@ const Navbar = () => {
     <header className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl">
       <nav className="glass-nav rounded-2xl px-6 py-4 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
-          <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
-            <Sprout className="w-5 h-5 text-primary-foreground" />
-          </div>
+          <img src="/logo.jpg" alt="Üreticiden" className="w-9 h-9 rounded-xl object-contain" />
           <span className="text-lg font-bold text-foreground">Üreticiden</span>
         </Link>
 

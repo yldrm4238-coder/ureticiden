@@ -14,13 +14,13 @@ const About = () => {
         <div className="max-w-3xl mx-auto text-center space-y-6">
           <p className="text-sm font-semibold text-primary uppercase tracking-wide">Hakkımızda</p>
           <h1 className="text-4xl sm:text-5xl font-extrabold text-foreground leading-tight">
-            Türkiye'nin Çiftçisini
+            Türkiye'nin Üreticisini
             <br />
-            <span className="text-gradient-primary">Dünyayla Buluşturuyoruz</span>
+            <span className="text-gradient-primary">Dünya ile Buluşturuyoruz</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Üreticiden, Türkiye'deki çiftçilerin ürünlerini doğrudan alıcılara ulaştırmasını sağlayan
-            dijital bir tarım pazarıdır. Aracıları ortadan kaldırarak hem üreticilerin hem alıcıların
+            Üreticiden, Türkiye'deki üreticilerin ürünlerini doğrudan tüketicilere ulaştırmasını sağlayan
+            dijital bir pazaryeridir. Aracıları ortadan kaldırarak hem üreticilerin hem de tüketicilerin
             kazanmasını hedefliyoruz.
           </p>
         </div>
@@ -36,8 +36,8 @@ const About = () => {
               </div>
               <h2 className="text-2xl font-bold text-foreground">Misyonumuz</h2>
               <p className="text-muted-foreground leading-relaxed">
-                Türkiye'deki tarımsal üreticiyi dijitalleştirmek, ürünlerini adil fiyatla doğrudan
-                alıcılara ulaştırmak ve sürdürülebilir bir tarım ekosistemi oluşturmak.
+                Türkiye'deki üreticileri dijitalleştirmek, ürünlerini adil fiyatla doğrudan
+                tüketicilere ulaştırmak ve ülkemizin ekonomisine katkı sağlamak.
               </p>
             </div>
             <div className="bg-card border border-border rounded-2xl p-8 space-y-4">
@@ -46,8 +46,8 @@ const About = () => {
               </div>
               <h2 className="text-2xl font-bold text-foreground">Vizyonumuz</h2>
               <p className="text-muted-foreground leading-relaxed">
-                Türkiye'nin en güvenilir ve en büyük tarımsal pazarı olmak.
-                Her çiftçinin dijital dünyada var olabildiği bir gelecek inşa etmek.
+                Türkiye'nin en güvenilir ve en büyük dijital pazaryeri olmak.
+                Üreticilerin dijital dünyada var olabildiği bir gelecek inşa etmek.
               </p>
             </div>
           </div>
