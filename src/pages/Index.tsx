@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Search, MapPin, ChevronRight, ArrowRight, Sprout, TrendingUp, Shield, Users, Star, BadgeCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
@@ -9,11 +9,21 @@ import ProductCard from "@/components/ProductCard";
 import { cities } from "@/lib/data";
 import { useProducts } from "@/hooks/useProducts";
 import { useCategories } from "@/hooks/useCategories";
+import { useAuth } from "@/hooks/useAuth";
 import heroImage from "@/assets/hero-farm.jpg";
 
 const Index = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCity, setSelectedCity] = useState("Tüm Türkiye");
+
+  const handleSearch = () => {
+    const params = new URLSearchParams();
+    if (searchQuery.trim()) params.set("q", searchQuery.trim());
+    if (selectedCity !== "Tüm Türkiye") params.set("city", selectedCity);
+    navigate(`/pazar${params.toString() ? `?${params.toString()}` : ""}`);
+  };
 
   const { data: products = [] } = useProducts();
   const { data: categories = [] } = useCategories();
@@ -60,6 +70,7 @@ const Index = () => {
                   placeholder="Ürün ara... (domates, buğday, fıstık)"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                   className="w-full py-3 bg-transparent text-sm text-foreground placeholder:text-muted-foreground outline-none"
                 />
               </div>
@@ -76,7 +87,7 @@ const Index = () => {
                     ))}
                   </select>
                 </div>
-                <Button className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl px-6">
+                <Button onClick={handleSearch} className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl px-6">
                   Ara
                 </Button>
               </div>
@@ -199,9 +210,9 @@ const Index = () => {
                   </li>
                 ))}
               </ul>
-              <Link to="/giris" className="block mt-2">
+              <Link to={user ? "/panel" : "/giris"} className="block mt-2">
                 <Button className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 rounded-xl">
-                  Üretici Olarak Kayıt Ol <ArrowRight className="w-4 h-4 ml-2" />
+                  {user ? "Panelime Git" : "Üretici Olarak Kayıt Ol"} <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
             </div>
@@ -224,9 +235,9 @@ const Index = () => {
                   </li>
                 ))}
               </ul>
-              <Link to="/giris" className="block mt-2">
+              <Link to={user ? "/pazar" : "/giris"} className="block mt-2">
                 <Button className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 rounded-xl">
-                  Alıcı Olarak Kayıt Ol <ArrowRight className="w-4 h-4 ml-2" />
+                  {user ? "Pazarı İncele" : "Alıcı Olarak Kayıt Ol"} <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
             </div>
@@ -310,16 +321,26 @@ const Index = () => {
             Binlerce üretici ve alıcı zaten burada. Ücretsiz kayıt olun, hemen başlayın.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link to="/giris">
-              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl px-8 w-full sm:w-auto">
-                Üretici Olarak Başla
-              </Button>
-            </Link>
-            <Link to="/giris">
-              <Button size="lg" variant="outline" className="border-earth-foreground/30 text-earth-foreground bg-transparent hover:bg-earth-foreground/10 rounded-xl px-8 w-full sm:w-auto">
-                Alıcı Olarak Başla
-              </Button>
-            </Link>
+            {user ? (
+              <Link to="/panel">
+                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl px-8 w-full sm:w-auto">
+                  Üretici Paneline Git
+                </Button>
+              </Link>
+            ) : (
+              <>
+                <Link to="/giris">
+                  <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl px-8 w-full sm:w-auto">
+                    Üretici Olarak Başla
+                  </Button>
+                </Link>
+                <Link to="/giris">
+                  <Button size="lg" variant="outline" className="border-earth-foreground/30 text-earth-foreground bg-transparent hover:bg-earth-foreground/10 rounded-xl px-8 w-full sm:w-auto">
+                    Alıcı Olarak Başla
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </section>

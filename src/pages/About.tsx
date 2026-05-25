@@ -3,8 +3,10 @@ import { Users, Target, Sprout, Heart, Globe, TrendingUp } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/useAuth";
 
 const About = () => {
+  const { user } = useAuth();
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -106,9 +108,15 @@ const About = () => {
           <p className="text-earth-foreground/70 max-w-lg mx-auto">
             Üretici veya alıcı olarak platforma katılın, Türkiye'nin en büyük çiftçi pazarında yerinizi alın.
           </p>
-          <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl px-8" asChild>
-            <Link to="/giris">Ücretsiz Kayıt Ol</Link>
-          </Button>
+          {user ? (
+            <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl px-8" asChild>
+              <Link to="/panel">Panele Git</Link>
+            </Button>
+          ) : (
+            <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl px-8" asChild>
+              <Link to="/giris">Ücretsiz Kayıt Ol</Link>
+            </Button>
+          )}
         </div>
       </section>
 

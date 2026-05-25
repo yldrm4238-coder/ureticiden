@@ -1,12 +1,26 @@
-import { Link } from "react-router-dom";
-import { MapPin, BadgeCheck, Leaf } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { MapPin, BadgeCheck, Leaf, Heart } from "lucide-react";
 import { Product, priceTypeLabels } from "@/lib/data";
+import { useFavorites } from "@/hooks/useFavorites";
+import { useAuth } from "@/hooks/useAuth";
 
 interface ProductCardProps {
   product: Product;
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const { isFavorite, toggle } = useFavorites();
+  const fav = isFavorite(product.id);
+
+  const handleFavorite = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!user) { navigate("/giris"); return; }
+    toggle(product.id);
+  };
+
   const renderPrice = () => {
     if (product.price) {
       return (
@@ -50,6 +64,17 @@ const ProductCard = ({ product }: ProductCardProps) => {
               </span>
             )}
           </div>
+          {/* Favori butonu */}
+          <button
+            onClick={handleFavorite}
+            className={`absolute top-3 right-3 p-2 rounded-full backdrop-blur transition-all duration-200 ${
+              fav
+                ? "bg-red-500 text-white"
+                : "bg-card/80 text-muted-foreground hover:text-red-500 hover:bg-card"
+            }`}
+          >
+            <Heart className={`w-4 h-4 ${fav ? "fill-white" : ""}`} />
+          </button>
         </div>
 
         {/* Content */}

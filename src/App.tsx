@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
+import { HelmetProvider } from "react-helmet-async";
 import Index from "./pages/Index";
 import Marketplace from "./pages/Marketplace";
 import ProductDetail from "./pages/ProductDetail";
@@ -14,10 +15,12 @@ import FAQ from "./pages/FAQ";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import ProducerDashboard from "./pages/ProducerDashboard";
+import MessagesPage from "./pages/MessagesPage";
 
 const queryClient = new QueryClient();
 
 const App = () => (
+  <HelmetProvider>
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
       <TooltipProvider>
@@ -34,12 +37,14 @@ const App = () => (
             <Route path="/hakkimizda" element={<About />} />
             <Route path="/sss" element={<FAQ />} />
             <Route path="/iletisim" element={<Contact />} />
+            <Route path="/mesajlarim" element={<MessagesPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </TooltipProvider>
     </AuthProvider>
   </QueryClientProvider>
+  </HelmetProvider>
 );
 
 export default App;

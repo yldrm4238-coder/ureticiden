@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, X, LogOut, User } from "lucide-react";
+import { Menu, X, LogOut, User, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 
@@ -49,6 +49,15 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-2">
           {user ? (
             <>
+              <Button
+                variant="ghost"
+                size="sm"
+                className={`gap-1 ${location.pathname === "/mesajlarim" ? "text-primary" : "text-muted-foreground"}`}
+                onClick={() => navigate("/mesajlarim")}
+              >
+                <MessageCircle className="w-4 h-4" />
+                Mesajlarım
+              </Button>
               <Button
                 variant="ghost"
                 size="sm"
@@ -119,6 +128,15 @@ const Navbar = () => {
           <div className="pt-2 border-t border-border flex flex-col gap-2">
             {user ? (
               <>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="justify-start text-muted-foreground gap-2"
+                  onClick={() => { setMobileOpen(false); navigate("/mesajlarim"); }}
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  Mesajlarım
+                </Button>
                 <Button
                   variant="ghost"
                   size="sm"

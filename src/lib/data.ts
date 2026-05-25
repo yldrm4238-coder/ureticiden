@@ -7,6 +7,7 @@ export interface Producer {
   totalProducts: number;
   isVerified: boolean;
   memberSince: string;
+  phone?: string;
 }
 
 export type PriceType = "kg" | "ton" | "negotiable" | "quote";

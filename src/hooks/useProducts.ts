@@ -15,10 +15,7 @@ export function useProducts() {
         `)
         .order("created_at", { ascending: false });
 
-      if (error) {
-        console.error("Error fetching products:", error);
-        return [];
-      }
+      if (error) throw error;
 
       if (!data) return [];
 
@@ -49,6 +46,7 @@ export function useProducts() {
             totalProducts: item.profiles?.total_products || 0,
             isVerified: item.profiles?.is_verified || false,
             memberSince: item.profiles?.member_since || "Yeni",
+            phone: item.profiles?.phone || null,
           }
         } as Product;
       });
