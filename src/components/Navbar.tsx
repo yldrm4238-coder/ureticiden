@@ -25,7 +25,7 @@ const Navbar = () => {
     <header className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl">
       <nav className="glass-nav rounded-2xl px-6 py-4 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
-          <img src="/logo.jpg" alt="Üreticiden" className="w-9 h-9 rounded-xl object-contain" />
+          <img src="/logo.jpg" alt="Üreticiden" className="w-12 h-12 rounded-xl object-contain" />
           <span className="text-lg font-bold text-foreground">Üreticiden</span>
         </Link>
 
