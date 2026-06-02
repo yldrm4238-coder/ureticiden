@@ -76,8 +76,8 @@ export default function ProducerDashboard() {
       <aside className="w-64 bg-background border-r h-screen hidden md:flex flex-col sticky top-0">
         <div className="p-4 border-b font-medium flex items-center h-16">
           <Link to="/" className="flex items-center text-primary group">
-            <span className="text-xl font-bold bg-primary text-primary-foreground px-2 py-1 rounded mr-2 group-hover:bg-primary/90 transition-colors">Ü</span>
-            Üretici Paneli
+            <span className="text-xl font-bold bg-primary text-primary-foreground px-2 py-1 rounded mr-2 group-hover:bg-primary/90 transition-colors">K</span>
+            Kontrol Paneli
           </Link>
         </div>
         <nav className="flex-1 p-4 space-y-2">

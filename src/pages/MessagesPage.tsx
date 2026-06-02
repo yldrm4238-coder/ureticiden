@@ -5,7 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
-import { Send, MessageCircle, Package, ArrowLeft } from "lucide-react";
+import { Send, MessageCircle, Package, ArrowLeft, Image as ImageIcon, X } from "lucide-react";
 
 interface Conversation {
   id: string;
@@ -25,6 +25,7 @@ interface Message {
   sender_id: string;
   content: string;
   created_at: string;
+  image_url?: string | null;
 }
 
 export default function MessagesPage() {
@@ -35,7 +36,10 @@ export default function MessagesPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState("");
   const [sending, setSending] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (!user) return;
@@ -54,7 +58,11 @@ export default function MessagesPage() {
         table: "messages",
         filter: `conversation_id=eq.${selectedConv.id}`,
       }, (payload) => {
-        setMessages((prev) => [...prev, payload.new as Message]);
+        const newMsg = payload.new as Message;
+        setMessages((prev) => {
+          if (prev.some((m) => m.id === newMsg.id)) return prev;
+          return [...prev, newMsg];
+        });
       })
       .subscribe();
 
@@ -73,7 +81,7 @@ export default function MessagesPage() {
         products(title, image),
         buyer:profiles!conversations_buyer_id_fkey(full_name),
         producer:profiles!conversations_producer_id_fkey(full_name),
-        messages(content, created_at)
+        messages(content, image_url, created_at)
       `)
       .or(`buyer_id.eq.${user!.id},producer_id.eq.${user!.id}`)
       .order("updated_at", { ascending: false });
@@ -101,6 +109,11 @@ export default function MessagesPage() {
         new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
       )[0];
 
+      let lastMsgText = lastMsg?.content || "";
+      if (!lastMsgText && lastMsg?.image_url) {
+        lastMsgText = "📷 Fotoğraf";
+      }
+
       return {
         id: c.id,
         product_id: c.product_id,
@@ -110,7 +123,7 @@ export default function MessagesPage() {
         product_title: c.products?.title || "Ürün",
         product_image: c.products?.image || null,
         other_name: otherProfile?.full_name || "Kullanıcı",
-        last_message: lastMsg?.content || "",
+        last_message: lastMsgText,
       };
     });
 
@@ -129,23 +142,104 @@ export default function MessagesPage() {
     setMessages(data || []);
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (!file.type.startsWith("image/")) {
+        toast({ title: "Hata", description: "Lütfen sadece resim dosyası seçin.", variant: "destructive" });
+        return;
+      }
+      if (file.size > 5 * 1024 * 1024) { // 5MB Limit
+        toast({ title: "Hata", description: "Resim boyutu en fazla 5MB olabilir.", variant: "destructive" });
+        return;
+      }
+      setSelectedFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const removeSelectedFile = () => {
+    setSelectedFile(null);
+    setImagePreview(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
   const sendMessage = async () => {
-    if (!newMessage.trim() || !selectedConv || !user) return;
+    if ((!newMessage.trim() && !selectedFile) || !selectedConv || !user) return;
+    const messageContent = newMessage.trim();
     setSending(true);
     try {
-      const { error } = await (supabase as any).from("messages").insert({
-        conversation_id: selectedConv.id,
-        sender_id: user.id,
-        content: newMessage.trim(),
-      });
+      let uploadedImageUrl: string | null = null;
+
+      if (selectedFile) {
+        const fileExt = selectedFile.name.split(".").pop();
+        const fileName = `chat-attachments/${crypto.randomUUID()}.${fileExt}`;
+        
+        const { error: uploadError } = await supabase.storage
+          .from("product-images")
+          .upload(fileName, selectedFile);
+
+        if (uploadError) throw uploadError;
+
+        const { data: urlData } = supabase.storage
+          .from("product-images")
+          .getPublicUrl(fileName);
+
+        if (urlData) {
+          uploadedImageUrl = urlData.publicUrl;
+        }
+      }
+
+      const { data, error } = await (supabase as any)
+        .from("messages")
+        .insert({
+          conversation_id: selectedConv.id,
+          sender_id: user.id,
+          content: messageContent,
+          image_url: uploadedImageUrl,
+        })
+        .select();
+
       if (error) throw error;
+
+      if (data && data.length > 0) {
+        const sentMsg = data[0] as Message;
+        setMessages((prev) => {
+          if (prev.some((m) => m.id === sentMsg.id)) return prev;
+          return [...prev, sentMsg];
+        });
+      }
 
       await (supabase as any)
         .from("conversations")
         .update({ updated_at: new Date().toISOString() })
         .eq("id", selectedConv.id);
 
+      // Sol listedeki konuşmanın son mesajını ve zamanını anında güncelle (WhatsApp tarzı)
+      setConversations((prev) => {
+        const updated = prev.map((c) => {
+          if (c.id === selectedConv.id) {
+            return {
+              ...c,
+              last_message: messageContent || "📷 Fotoğraf",
+              updated_at: new Date().toISOString(),
+            };
+          }
+          return c;
+        });
+        return [...updated].sort(
+          (a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()
+        );
+      });
+
       setNewMessage("");
+      removeSelectedFile();
     } catch (err: any) {
       toast({ title: "Hata", description: err.message, variant: "destructive" });
     } finally {
@@ -263,7 +357,14 @@ export default function MessagesPage() {
                             ? "bg-primary text-primary-foreground rounded-br-sm"
                             : "bg-muted text-foreground rounded-bl-sm"
                         }`}>
-                          <p>{msg.content}</p>
+                          {msg.image_url && (
+                            <div className="mb-2 overflow-hidden rounded-lg">
+                              <a href={msg.image_url} target="_blank" rel="noreferrer" className="block">
+                                <img src={msg.image_url} alt="Ek" className="max-h-64 max-w-full object-cover rounded-lg hover:opacity-90 transition-opacity" />
+                              </a>
+                            </div>
+                          )}
+                          {msg.content && <p className="break-words whitespace-pre-wrap">{msg.content}</p>}
                           <p className={`text-xs mt-1 ${isMe ? "text-primary-foreground/60" : "text-muted-foreground"}`}>
                             {formatTime(msg.created_at)}
                           </p>
@@ -275,8 +376,38 @@ export default function MessagesPage() {
                 </div>
 
                 {/* Input */}
-                <div className="p-4 border-t space-y-1">
-                  <div className="flex gap-2">
+                <div className="p-4 border-t space-y-2">
+                  {imagePreview && (
+                    <div className="relative inline-block">
+                      <img src={imagePreview} alt="Önizleme" className="h-20 w-20 object-cover rounded-lg border bg-muted" />
+                      <button
+                        type="button"
+                        onClick={removeSelectedFile}
+                        className="absolute -top-1.5 -right-1.5 bg-destructive text-destructive-foreground rounded-full p-0.5 shadow hover:scale-105 transition-transform"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  )}
+
+                  <div className="flex gap-2 items-center">
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      onChange={handleFileChange}
+                      accept="image/*"
+                      className="hidden"
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => fileInputRef.current?.click()}
+                      disabled={sending}
+                      className="rounded-xl px-3 shrink-0"
+                      title="Fotoğraf Ekle"
+                    >
+                      <ImageIcon className="w-4 h-4 text-muted-foreground" />
+                    </Button>
                     <input
                       type="text"
                       value={newMessage}
@@ -288,8 +419,8 @@ export default function MessagesPage() {
                     />
                     <Button
                       onClick={sendMessage}
-                      disabled={sending || !newMessage.trim()}
-                      className="rounded-xl px-4"
+                      disabled={sending || (!newMessage.trim() && !selectedFile)}
+                      className="rounded-xl px-4 shrink-0"
                     >
                       <Send className="w-4 h-4" />
                     </Button>
