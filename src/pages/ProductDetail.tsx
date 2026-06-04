@@ -136,6 +136,26 @@ const ProductDetail = () => {
         <meta property="og:description" content={pageDesc} />
         {product.image && <meta property="og:image" content={product.image} />}
         <meta property="og:type" content="product" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "name": product.title,
+            "image": product.image ? [product.image] : [],
+            "description": pageDesc,
+            "offers": {
+              "@type": "Offer",
+              "url": `https://ureticiden.com/urun/${product.id}`,
+              "priceCurrency": "TRY",
+              "price": product.price || 0,
+              "availability": "https://schema.org/InStock",
+              "seller": {
+                "@type": "Organization",
+                "name": product.producer.name
+              }
+            }
+          })}
+        </script>
       </Helmet>
       <Navbar />
 

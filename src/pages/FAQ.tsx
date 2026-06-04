@@ -15,7 +15,7 @@ const faqData: FAQItem[] = [
   {
     category: "Genel",
     question: "Üreticiden nedir?",
-    answer: "Üreticiden, Türkiye'deki çiftçilerin ürünlerini doğrudan alıcılara ulaştırmasını sağlayan dijital bir tarım pazarıdır. Aracıları ortadan kaldırarak hem üreticilere adil fiyat hem alıcılara taze ürün garantisi sunuyoruz.",
+    answer: "Üreticiden, Türkiye'deki üreticilerin ürünlerini doğrudan tüketicilere ulaştırmasını sağlayan dijital bir pazaryeridir. Aracıları ortadan kaldırarak hem üreticiyi hem de tüketiciyi korumayı amaçlıyoruz.",
   },
   {
     category: "Genel",

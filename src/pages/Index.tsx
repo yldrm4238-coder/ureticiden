@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { Search, MapPin, ChevronRight, ArrowRight, Sprout, TrendingUp, Shield, Users, Star, BadgeCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
@@ -32,6 +33,11 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>Üreticiden — Türkiye'nin Çiftçi Pazarı | Taze ve Organik Tarım Ürünleri</title>
+        <meta name="description" content="Türkiye'nin en büyük dijital tarım pazarı. Taze sebze, meyve ve tüm tarım ürünlerini doğrudan yerli üreticiden komisyonsuz alın." />
+        <link rel="canonical" href="https://ureticiden.com/" />
+      </Helmet>
       <Navbar />
 
       {/* Hero */}

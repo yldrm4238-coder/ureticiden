@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { Search, MapPin, SlidersHorizontal, X, AlertCircle, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
@@ -55,13 +56,17 @@ const Marketplace = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>Pazar Yeri | Üreticiden — Türkiye'nin Çiftçi Pazarı</title>
+        <meta name="description" content="Üreticiden Pazar Yeri'nde taze meyve, sebze ve organik tarım ürünlerini keşfedin. Üreticilerle doğrudan iletişime geçin." />
+        <link rel="canonical" href="https://ureticiden.com/pazar" />
+      </Helmet>
       <Navbar />
 
       <div className="container pt-28 pb-20">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-2">Pazar Yeri</h1>
-          <p className="text-muted-foreground">Türkiye genelinde tarım ürünlerini keşfedin</p>
         </div>
 
         {/* Search + Filters */}

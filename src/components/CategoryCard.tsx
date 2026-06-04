@@ -10,6 +10,11 @@ const categoryImages: Record<string, string> = {
   "kucukbas-hayvan": "/assets/categories/kucukbas.png",
   "sut-ve-sut-urunleri": "/assets/categories/sut-urunleri.png",
   "yaglar": "/assets/categories/yaglar.png",
+  "sebzeler": "/assets/categories/sebzeler.jpg",
+  "meyveler": "/assets/categories/meyveler.jpg",
+  "kuruyemisler": "/assets/categories/kuruyemisler.jpg",
+  "organik": "/assets/categories/organik.jpg",
+  "baklagiller": "/assets/categories/baklagiller.jpg",
 };
 
 const CategoryCard = ({ category }: CategoryCardProps) => {

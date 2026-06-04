@@ -12,9 +12,6 @@ const Footer = () => {
               <img src="/logo.jpg" alt="Üreticiden" className="w-9 h-9 rounded-xl object-contain" />
               <span className="text-lg font-bold">Üreticiden</span>
             </div>
-            <p className="text-sm opacity-70 leading-relaxed">
-              Türkiye'nin çiftçi pazarı. Üreticiler ve alıcılar modern bir tarım pazarında buluşuyor.
-            </p>
           </div>
 
           {/* Quick Links */}
@@ -46,10 +43,6 @@ const Footer = () => {
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4" />
                 info@ureticiden.com
-              </li>
-              <li className="flex items-center gap-2">
-                <Phone className="w-4 h-4" />
-                +90 (212) 000 00 00
               </li>
               <li className="flex items-center gap-2">
                 <MapPin className="w-4 h-4" />
