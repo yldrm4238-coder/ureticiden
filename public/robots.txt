@@ -1,4 +1,4 @@
-Sitemap: https://ureticiden.com/sitemap.xml
+Sitemap: https://xn--reticiden-p9a.com.tr/sitemap.xml
 
 User-agent: Googlebot
 Allow: /
