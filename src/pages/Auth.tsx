@@ -195,6 +195,7 @@ const Auth = () => {
             </Button>
           </form>
 
+          {/* Gelecekte kullanılmak üzere gizlendi
           <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
               <span className="w-full border-t border-border"></span>
@@ -245,6 +246,7 @@ const Auth = () => {
               Facebook
             </Button>
           </div>
+          */}
 
           <p className="text-center text-sm text-muted-foreground mt-8">
             {isLogin ? "Hesabınız yok mu?" : "Zaten hesabınız var mı?"}{" "}
