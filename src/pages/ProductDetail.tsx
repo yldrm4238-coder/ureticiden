@@ -136,6 +136,7 @@ const ProductDetail = () => {
         <meta property="og:description" content={pageDesc} />
         {product.image && <meta property="og:image" content={product.image} />}
         <meta property="og:type" content="product" />
+        <link rel="canonical" href={`https://www.ureticiden.tr/urun/${product.id}`} />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org/",
@@ -145,7 +146,7 @@ const ProductDetail = () => {
             "description": pageDesc,
             "offers": {
               "@type": "Offer",
-              "url": `https://ureticiden.com/urun/${product.id}`,
+              "url": `https://www.ureticiden.tr/urun/${product.id}`,
               "priceCurrency": "TRY",
               "price": product.price || 0,
               "availability": "https://schema.org/InStock",

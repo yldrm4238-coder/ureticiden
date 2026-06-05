@@ -3,7 +3,7 @@ import path from 'path';
 
 // Bu script sitemap.xml dosyasını otomatik olarak oluşturur.
 // Canlı domain'i buraya yazıyoruz:
-const DOMAIN = 'https://xn--reticiden-p9a.com.tr';
+const DOMAIN = 'https://www.ureticiden.tr';
 
 const routes = [
   '/',

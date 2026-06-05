@@ -59,7 +59,7 @@ const Marketplace = () => {
       <Helmet>
         <title>Pazar Yeri | Üreticiden — Türkiye'nin Çiftçi Pazarı</title>
         <meta name="description" content="Üreticiden Pazar Yeri'nde taze meyve, sebze ve organik tarım ürünlerini keşfedin. Üreticilerle doğrudan iletişime geçin." />
-        <link rel="canonical" href="https://ureticiden.com/pazar" />
+        <link rel="canonical" href="https://www.ureticiden.tr/pazar" />
       </Helmet>
       <Navbar />
 

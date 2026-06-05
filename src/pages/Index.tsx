@@ -36,7 +36,7 @@ const Index = () => {
       <Helmet>
         <title>Üreticiden — Türkiye'nin Çiftçi Pazarı | Taze ve Organik Tarım Ürünleri</title>
         <meta name="description" content="Türkiye'nin en büyük dijital tarım pazarı. Taze sebze, meyve ve tüm tarım ürünlerini doğrudan yerli üreticiden komisyonsuz alın." />
-        <link rel="canonical" href="https://ureticiden.com/" />
+        <link rel="canonical" href="https://www.ureticiden.tr/" />
       </Helmet>
       <Navbar />
 
