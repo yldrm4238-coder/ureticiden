@@ -15,6 +15,7 @@ const categoryImages: Record<string, string> = {
   "kuruyemisler": "/assets/categories/kuruyemisler.jpg",
   "organik": "/assets/categories/organik.jpg",
   "baklagiller": "/assets/categories/baklagiller.jpg",
+  "sabun-temizlik": "/assets/categories/sabun-temizlik.jpg",
 };
 
 const CategoryCard = ({ category }: CategoryCardProps) => {
