@@ -31,6 +31,13 @@ const Index = () => {
 
   const featuredProducts = products.slice(0, 4);
 
+  // categories.count DB'de statik bir kolon, ürün eklendikçe güncellenmiyor —
+  // gerçek sayıyı elimizdeki ürün listesinden anlık hesaplıyoruz.
+  const categoriesWithLiveCount = categories.map((cat) => ({
+    ...cat,
+    count: products.filter((p) => p.categorySlug === cat.slug).length,
+  }));
+
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
@@ -128,7 +135,7 @@ const Index = () => {
           </Link>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-          {categories.map((cat) => (
+          {categoriesWithLiveCount.map((cat) => (
             <CategoryCard key={cat.id || cat.slug} category={cat} />
           ))}
         </div>

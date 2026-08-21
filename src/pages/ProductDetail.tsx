@@ -11,6 +11,7 @@ import { useProducts } from "@/hooks/useProducts";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { useQuery } from "@tanstack/react-query";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -22,6 +23,24 @@ const ProductDetail = () => {
   const [showMessageBox, setShowMessageBox] = useState(false);
   const [messageText, setMessageText] = useState("");
   const [sending, setSending] = useState(false);
+
+  // profiles.rating DB'de statik bir kolon, yeni yorumlarla güncellenmiyor —
+  // gerçek ortalamayı reviews tablosundan anlık hesaplıyoruz (bkz. ProducerProfile.tsx).
+  const producerId = product?.producer.id;
+  const { data: producerReviews = [] } = useQuery({
+    queryKey: ["reviews", producerId],
+    enabled: !!producerId,
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("reviews")
+        .select("rating")
+        .eq("producer_id", producerId!);
+      return data ?? [];
+    },
+  });
+  const liveRating = producerReviews.length > 0
+    ? producerReviews.reduce((sum, r) => sum + r.rating, 0) / producerReviews.length
+    : null;
 
   const handleSendMessage = async () => {
     if (!user) { navigate("/giris"); return; }
@@ -239,8 +258,12 @@ const ProductDetail = () => {
                   </div>
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <MapPin className="w-3 h-3" /> {product.producer.city}
-                    <span className="mx-1">·</span>
-                    <Star className="w-3 h-3 fill-accent text-accent" /> {product.producer.rating}
+                    {liveRating !== null && (
+                      <>
+                        <span className="mx-1">·</span>
+                        <Star className="w-3 h-3 fill-accent text-accent" /> {liveRating.toFixed(1)}
+                      </>
+                    )}
                   </div>
                 </div>
               </div>

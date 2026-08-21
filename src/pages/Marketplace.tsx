@@ -13,7 +13,7 @@ import { useCategories } from "@/hooks/useCategories";
 const Marketplace = () => {
   const [searchParams] = useSearchParams();
   const [search, setSearch] = useState(searchParams.get("q") || "");
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedCategory, setSelectedCategory] = useState(searchParams.get("kategori") || "all");
   const [selectedCity, setSelectedCity] = useState(searchParams.get("city") || "Tüm Türkiye");
   const [showFilters, setShowFilters] = useState(false);
   const [organicOnly, setOrganicOnly] = useState(false);
