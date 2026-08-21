@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 20% 98%;
+    --foreground: 150 10% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 150 10% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 150 10% 15%;
+
+    --primary: 142 44% 32%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 38 60% 94%;
+    --secondary-foreground: 30 30% 25%;
+
+    --muted: 40 15% 94%;
+    --muted-foreground: 150 5% 45%;
+
+    --accent: 38 80% 55%;
+    --accent-foreground: 30 40% 15%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 40 15% 90%;
+    --input: 40 15% 90%;
+    --ring: 142 44% 32%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 142 44% 32%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 40 15% 94%;
+    --sidebar-accent-foreground: 150 10% 15%;
+    --sidebar-border: 40 15% 90%;
+    --sidebar-ring: 142 44% 32%;
+
+    /* Custom tokens */
+    --earth: 30 25% 30%;
+    --earth-foreground: 40 20% 95%;
+    --leaf: 142 44% 32%;
+    --leaf-light: 142 35% 92%;
+    --harvest: 38 80% 55%;
+    --harvest-light: 38 60% 94%;
+    --warm: 25 40% 50%;
+    --warm-light: 25 30% 95%;
+
+    --gradient-hero: linear-gradient(135deg, hsl(142 44% 32% / 0.9), hsl(142 44% 32% / 0.7));
+    --gradient-accent: linear-gradient(135deg, hsl(38 80% 55%), hsl(30 70% 50%));
+    --gradient-earth: linear-gradient(135deg, hsl(30 25% 30%), hsl(150 10% 15%));
+
+    --shadow-card: 0 1px 3px hsl(150 10% 15% / 0.04), 0 4px 12px hsl(150 10% 15% / 0.06);
+    --shadow-card-hover: 0 4px 12px hsl(150 10% 15% / 0.08), 0 12px 32px hsl(150 10% 15% / 0.1);
+    --shadow-nav: 0 4px 30px hsl(150 10% 15% / 0.08);
+
+    --nav-blur: blur(20px);
+    --nav-bg: hsl(0 0% 100% / 0.8);
+  }
+
+  .dark {
+    --background: 150 10% 8%;
+    --foreground: 40 20% 95%;
+    --card: 150 10% 12%;
+    --card-foreground: 40 20% 95%;
+    --popover: 150 10% 12%;
+    --popover-foreground: 40 20% 95%;
+    --primary: 142 44% 45%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 150 10% 16%;
+    --secondary-foreground: 40 20% 90%;
+    --muted: 150 8% 18%;
+    --muted-foreground: 40 10% 60%;
+    --accent: 38 70% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 150 8% 20%;
+    --input: 150 8% 20%;
+    --ring: 142 44% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    @apply tracking-tight;
+  }
+}
+
+@layer components {
+  .glass-nav {
+    background: var(--nav-bg);
+    backdrop-filter: var(--nav-blur);
+    -webkit-backdrop-filter: var(--nav-blur);
+    box-shadow: var(--shadow-nav);
+  }
+
+  .card-hover {
+    box-shadow: var(--shadow-card);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-hover:hover {
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-2px);
+  }
+
+  .gradient-hero-overlay {
+    background: var(--gradient-hero);
+  }
+
+  .gradient-accent {
+    background: var(--gradient-accent);
+  }
+
+  .gradient-earth {
+    background: var(--gradient-earth);
+  }
+
+  .text-gradient-primary {
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .animate-fade-up {
+    animation: fadeUp 0.6s ease-out forwards;
+    opacity: 0;
+  }
+
+  .animate-fade-up-delay-1 { animation-delay: 0.1s; }
+  .animate-fade-up-delay-2 { animation-delay: 0.2s; }
+  .animate-fade-up-delay-3 { animation-delay: 0.3s; }
+  .animate-fade-up-delay-4 { animation-delay: 0.4s; }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
